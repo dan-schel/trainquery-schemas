@@ -41,20 +41,12 @@
             "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
           },
           "route": {
-            "$ref": "lines-v5-route.schema.json"
+            "$ref": "refs/lines-route.schema.json"
           }
         },
-        "required": [
-          "id",
-          "name",
-          "color",
-          "serviceType",
-          "route"
-        ]
+        "required": ["id", "name", "color", "serviceType", "route"]
       }
     }
   },
-  "required": [
-    "lines"
-  ]
+  "required": ["lines"]
 }
