@@ -23,8 +23,12 @@
         "additionalProperties": false,
         "properties": {
           "routeIDRegex": {
-            "type": "string",
-            "description": "Regular expression that must match the GTFS route ID for a trip to be assigned to this line."
+            "type": "array",
+            "description": "A list of regular expressions that a trip must have its GTFS route ID match one or more of in order to be to be assigned to this line.",
+            "items": {
+              "type": "string",
+              "description": "Regular expression that must match the GTFS route ID for a trip to be assigned to this line."
+            }
           },
           "ignoreStops": {
             "type": "array",
@@ -39,6 +43,7 @@
     }
   },
   "type": "object",
+  "additionalProperties": false,
   "properties": {
     "staticData": {
       "type": "string",
@@ -51,52 +56,51 @@
     "persist": {
       "type": "boolean",
       "description": "Whether to persist the static data to the database."
+    },
+    "parsing": {
+      "$ref": "#/definitions/parsing"
+    },
+    "stops": {
+      "$ref": "#/definitions/stops"
+    },
+    "subfeeds": {
+      "type": "array",
+      "description": "Used when the downloaded zip file contains inner zip files, each with their own independent feeds.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the subfeed, e.g. 'suburban' or 'regional'."
+          },
+          "path": {
+            "type": "string",
+            "description": "The location of the zip file within the outer zip file, e.g. '1/google_transit.zip'."
+          },
+          "parsing": {
+            "$ref": "#/definitions/parsing"
+          },
+          "stops": {
+            "$ref": "#/definitions/stops"
+          }
+        },
+        "required": ["name", "path", "parsing", "stops"]
+      }
     }
   },
-  "required": ["staticData", "refreshHourUtc", "persist"],
   "oneOf": [
     {
-      "additionalProperties": false,
-      "properties": {
-        "subfeeds": {
-          "type": "array",
-          "description": "Used when the downloaded zip file contains inner zip files, each with their own independent feeds.",
-          "items": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "name": {
-                "type": "string",
-                "description": "The name of the subfeed, e.g. 'suburban' or 'regional'."
-              },
-              "path": {
-                "type": "string",
-                "description": "The location of the zip file within the outer zip file, e.g. '1/google_transit.zip'."
-              },
-              "parsing": {
-                "$ref": "#/definitions/parsing"
-              },
-              "stops": {
-                "$ref": "#/definitions/stops"
-              }
-            },
-            "required": ["name", "path", "parsing", "stops"]
-          }
-        }
-      },
-      "required": ["subfeeds"]
+      "required": ["staticData", "refreshHourUtc", "persist", "subfeeds"]
     },
     {
-      "additionalProperties": false,
-      "properties": {
-        "parsing": {
-          "$ref": "#/definitions/parsing"
-        },
-        "stops": {
-          "$ref": "#/definitions/stops"
-        }
-      },
-      "required": ["parsing", "stops"]
+      "required": [
+        "staticData",
+        "refreshHourUtc",
+        "persist",
+        "parsing",
+        "stops"
+      ]
     }
   ]
 }
