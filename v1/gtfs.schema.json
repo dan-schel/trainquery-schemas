@@ -30,6 +30,14 @@
               "description": "Regular expression that must match the GTFS route ID for a trip to be assigned to this line."
             }
           },
+          "canDedupeWith": {
+            "type": "array",
+            "description": "The line IDs of lines which trips on this line might be duplicates/subsets of. There is no need to specify the ID of this line.",
+            "items": {
+              "type": "integer",
+              "description": "The ID of a line which trips on this line might be duplicates/subsets of. There is no need to specify the ID of this line."
+            }
+          },
           "ignoreStops": {
             "type": "array",
             "description": "Stop IDs of stops which can be ignored when attempting to match trips to this line, e.g. Burnley for the Pakenham/Cranbourne lines.",
