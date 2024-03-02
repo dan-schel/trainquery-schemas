@@ -9,8 +9,8 @@
         "type": "object",
         "properties": {
           "method": {
-            "description": "Either 'linear' or 'hook'.",
-            "enum": ["linear", "hook"]
+            "enum": ["linear", "hook"],
+            "description": "Either 'linear' or 'hook'."
           }
         },
         "oneOf": [

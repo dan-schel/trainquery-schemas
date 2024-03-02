@@ -72,9 +72,8 @@
           ]
         },
         "apiAuth": {
-          "type": "string",
-          "description": "The method of authentication to use when accessing the realtime API.",
-          "enum": ["none", "melbourne"]
+          "enum": ["none", "melbourne"],
+          "description": "The method of authentication to use when accessing the realtime API."
         },
         "refreshInterval": {
           "type": "integer",

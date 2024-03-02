@@ -18,8 +18,6 @@
             "description": "E.g. 'Pakenham' or 'Gippsland'."
           },
           "color": {
-            "type": "string",
-            "description": "A color to associate with this line. Default: 'none'.",
             "enum": [
               "none",
               "red",
@@ -29,7 +27,8 @@
               "blue",
               "purple",
               "pink"
-            ]
+            ],
+            "description": "A color to associate with this line. Default: 'none'."
           },
           "specialEventsOnly": {
             "type": "boolean",

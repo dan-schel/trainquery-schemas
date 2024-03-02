@@ -1,0 +1,55 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "staleDisruptions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "dismissable": {
+          "oneOf": [
+            {
+              "const": false
+            },
+            {
+              "enum": ["each-day"]
+            }
+          ]
+        },
+        "message": {
+          "type": "string",
+          "description": "The message on the banner. Supports some limited markdown, e.g. **bold**, *italics*, and [links](url)."
+        }
+      },
+      "required": ["dismissable", "message"]
+    },
+    "custom": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "A unique identifier for the custom banner. This is used to determine if the banner has been dismissed."
+          },
+          "dismissable": {
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "enum": ["each-day"]
+              }
+            ]
+          },
+          "message": {
+            "type": "string",
+            "description": "The message on the banner. Supports some limited markdown, e.g. **bold**, *italics*, and [links](url)."
+          }
+        },
+        "required": ["id", "dismissable", "message"]
+      }
+    }
+  }
+}

@@ -24,9 +24,7 @@
                 "description": "A filter string describing when passengers can board at this station, e.g. 'direction-up' if only up trains pick up passengers here. Default to an empty string (all trains pick up)."
               }
             },
-            "required": [
-              "stops"
-            ]
+            "required": ["stops"]
           },
           {
             "additionalProperties": false,
@@ -36,9 +34,7 @@
                 "type": "number"
               }
             },
-            "required": [
-              "via"
-            ]
+            "required": ["via"]
           }
         ]
       }
@@ -59,18 +55,11 @@
   "description": "Describes the stops and route this line takes.",
   "properties": {
     "type": {
-      "type": "string",
-      "description": "Either 'linear', 'y-branch', or 'hook'.",
-      "enum": [
-        "linear",
-        "y-branch",
-        "hook"
-      ]
+      "enum": ["linear", "y-branch", "hook"],
+      "description": "Either 'linear', 'y-branch', or 'hook'."
     }
   },
-  "required": [
-    "type"
-  ],
+  "required": ["type"],
   "oneOf": [
     {
       "additionalProperties": false,
@@ -91,11 +80,7 @@
           "$ref": "#/definitions/stopArray"
         }
       },
-      "required": [
-        "forward",
-        "reverse",
-        "stops"
-      ]
+      "required": ["forward", "reverse", "stops"]
     },
     {
       "additionalProperties": false,
@@ -185,13 +170,7 @@
           "description": "Stops that travel directly to the terminus (avoiding the hooked section), ordered with the terminus last."
         }
       },
-      "required": [
-        "forward",
-        "reverse",
-        "stops",
-        "hooked",
-        "direct"
-      ]
+      "required": ["forward", "reverse", "stops", "hooked", "direct"]
     }
   ]
 }
