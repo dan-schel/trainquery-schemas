@@ -15,7 +15,7 @@
               "enum": ["each-day"]
             }
           ],
-          "description": "Whether the banner is dismissable. If set to `each-day`, the banner will be shown once per day."
+          "description": "Whether the banner is dismissable. If set to 'each-day', the banner will be shown once per day."
         },
         "message": {
           "type": "string",
@@ -44,7 +44,7 @@
                 "enum": ["each-day"]
               }
             ],
-            "description": "Whether the banner is dismissable. If set to `each-day`, the banner will be shown once per day."
+            "description": "Whether the banner is dismissable. If set to 'each-day', the banner will be shown once per day."
           },
           "message": {
             "type": "string",
