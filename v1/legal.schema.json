@@ -1,0 +1,43 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "timetableData": {
+      "type": "array",
+      "description": "Licences and attribution for timetable data.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "The title of the data source."
+          },
+          "message": {
+            "type": "string",
+            "description": "The copyright/licencing message."
+          },
+          "links": {
+            "type": "array",
+            "description": "Optional array of external links.",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "description": "The text of the link."
+                },
+                "url": {
+                  "type": "string",
+                  "description": "The url for the link."
+                }
+              }
+            }
+          }
+        },
+        "required": ["title", "message"]
+      }
+    }
+  }
+}
