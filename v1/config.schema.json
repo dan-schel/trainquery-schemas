@@ -112,6 +112,10 @@
         "about": {
           "type": "string",
           "description": "The path to the .md file for the about page content."
+        },
+        "legal": {
+          "type": "string",
+          "description": "The path to the .yml config file that provides additional messages on the '/about/legal' page."
         }
       },
       "required": ["timetables", "platformRules", "linter", "about"]
