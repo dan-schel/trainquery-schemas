@@ -136,9 +136,9 @@
           "type": "string",
           "description": "Used on the homepage, e.g. 'Navigate Melbourne's train network'."
         },
-        "footer": {
+        "footerMarkdown": {
           "type": "string",
-          "description": "Raw HTML string with copyright info and disclaimers visible in the footer."
+          "description": "Markdown string with copyright info and disclaimers visible in the footer."
         },
         "metaDescription": {
           "type": "string",
@@ -195,7 +195,7 @@
       "required": [
         "appName",
         "tagline",
-        "footer",
+        "footerMarkdown",
         "metaDescription",
         "departureFeeds",
         "directionNames"
