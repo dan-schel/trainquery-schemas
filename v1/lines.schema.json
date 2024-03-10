@@ -32,7 +32,7 @@
           },
           "visibility": {
             "enum": ["regular", "special-events-only", "hidden"],
-            "description": "True if the line only runs occasionally. Default: 'regular'."
+            "description": "Determines which contexts this line should be shown in. Hidden lines can be used to match unusual routes. Default: 'regular'."
           },
           "serviceType": {
             "type": "string",
