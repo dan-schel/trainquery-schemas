@@ -30,9 +30,9 @@
             ],
             "description": "A color to associate with this line. Default: 'none'."
           },
-          "specialEventsOnly": {
-            "type": "boolean",
-            "description": "True if the line only runs occasionally. Default: false."
+          "visibility": {
+            "enum": ["regular", "special-events-only", "hidden"],
+            "description": "True if the line only runs occasionally. Default: 'regular'."
           },
           "serviceType": {
             "type": "string",
