@@ -18,9 +18,7 @@
             "description": "How many departures to show. Default: 5."
           }
         },
-        "required": [
-          "filter"
-        ]
+        "required": ["filter"]
       }
     }
   },
@@ -49,16 +47,15 @@
           },
           "feeds": {
             "$ref": "#/definitions/feeds"
+          },
+          "disableDirectionFiltering": {
+            "type": "boolean",
+            "description": "True if the user should not be able to select direction-based filters at these stops."
           }
         },
-        "required": [
-          "stops",
-          "feeds"
-        ]
+        "required": ["stops", "feeds"]
       }
     }
   },
-  "required": [
-    "default"
-  ]
+  "required": ["default"]
 }
