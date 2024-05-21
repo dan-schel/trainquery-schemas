@@ -22,6 +22,10 @@
           "type": "string",
           "description": "The path to the .yml config file for continunation."
         },
+        "locations": {
+          "type": "string",
+          "description": "The path to the .yml config file for stop locations."
+        },
         "usePlatforms": {
           "type": "boolean",
           "description": "True if stops should list their platforms. Enables platform filtering."
