@@ -40,10 +40,34 @@
           },
           "ignoreStops": {
             "type": "array",
-            "description": "Stop IDs of stops which can be ignored when attempting to match trips to this line, e.g. Burnley for the Pakenham/Cranbourne lines.",
+            "description": "Rules for stops which can be ignored when attempting to match trips to this line, e.g. Burnley for the Pakenham/Cranbourne lines.",
             "items": {
-              "type": "integer",
-              "description": "The stop ID, e.g. '43' for Burnley."
+              "oneOf": [
+                {
+                  "type": "integer",
+                  "description": "The stop ID, e.g. '43' for Burnley."
+                },
+                {
+                  "type": "object",
+                  "description": "A rule to define when a stop should be ignored when matching trips to this line.",
+                  "additionalProperties": false,
+                  "properties": {
+                    "stop": {
+                      "type": "integer",
+                      "description": "The stop ID, e.g. '43' for Burnley."
+                    },
+                    "ifPresent": {
+                      "type": "array",
+                      "description": "A list of stop IDs that all must be present in the trip (in any order) for the stop to be ignored.",
+                      "items": {
+                        "type": "integer",
+                        "description": "The stop ID, e.g. '43' for Burnley."
+                      }
+                    }
+                  },
+                  "required": ["stop"]
+                }
+              ]
             }
           }
         }
