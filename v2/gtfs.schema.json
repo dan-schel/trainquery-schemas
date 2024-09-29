@@ -96,7 +96,7 @@
           ]
         },
         "apiAuth": {
-          "enum": ["none", "melbourne"],
+          "enum": ["none", "melbourne", "relay"],
           "description": "The method of authentication to use when accessing the realtime API."
         },
         "refreshInterval": {
