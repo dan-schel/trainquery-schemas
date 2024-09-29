@@ -2,7 +2,7 @@
   "type": "object",
   "additionalProperties": false,
   "patternProperties": {
-    "^v[0-9]$": {
+    "^v[0-9]+$": {
       "type": "object",
       "description": "Provides paths to .zip files with data in this format version.",
       "additionalProperties": false,
@@ -16,9 +16,7 @@
           "description": "Optionally provide a backup .zip file to use if the file at the latest URL cannot be downloaded."
         }
       },
-      "required": [
-        "latest"
-      ]
+      "required": ["latest"]
     }
   }
 }
