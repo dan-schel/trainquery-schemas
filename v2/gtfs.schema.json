@@ -1,0 +1,232 @@
+{
+  "definitions": {
+    "stops": {
+      "type": "object",
+      "description": "Maps GTFS stop IDs to the stop IDs specified in stops.yml, e.g. '20287: 4' to map 20287 in the GTFS data to Albury (#4).",
+      "propertyNames": {
+        "type": "integer"
+      },
+      "additionalProperties": {
+        "type": "integer",
+        "description": "The stop ID, e.g. '48' for Cardinia Road."
+      }
+    },
+    "parsing": {
+      "type": "object",
+      "description": "Rules which determine which trips are identified as occuring on this line.",
+      "propertyNames": {
+        "type": "integer"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "description": "The rules for a particular line.",
+        "additionalProperties": false,
+        "properties": {
+          "routeIDRegex": {
+            "type": "array",
+            "description": "A list of regular expressions that a trip must have its GTFS route ID match one or more of in order to be to be assigned to this line.",
+            "items": {
+              "type": "string",
+              "description": "Regular expression that must match the GTFS route ID for a trip to be assigned to this line."
+            }
+          },
+          "canDedupeWith": {
+            "type": "array",
+            "description": "The line IDs of lines which trips on this line might be duplicates/subsets of. There is no need to specify the ID of this line.",
+            "items": {
+              "type": "integer",
+              "description": "The ID of a line which trips on this line might be duplicates/subsets of. There is no need to specify the ID of this line."
+            }
+          },
+          "ignoreStops": {
+            "type": "array",
+            "description": "Rules for stops which can be ignored when attempting to match trips to this line, e.g. Burnley for the Pakenham/Cranbourne lines.",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "integer",
+                  "description": "The stop ID, e.g. '43' for Burnley."
+                },
+                {
+                  "type": "object",
+                  "description": "A rule to define when a stop should be ignored when matching trips to this line.",
+                  "additionalProperties": false,
+                  "properties": {
+                    "stop": {
+                      "type": "integer",
+                      "description": "The stop ID, e.g. '43' for Burnley."
+                    },
+                    "ifPresent": {
+                      "type": "array",
+                      "description": "A list of stop IDs that all must be present in the trip (in any order) for the stop to be ignored.",
+                      "items": {
+                        "type": "integer",
+                        "description": "The stop ID, e.g. '43' for Burnley."
+                      }
+                    }
+                  },
+                  "required": ["stop"]
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "realtime": {
+      "type": "object",
+      "description": "Configures how realtime data is loaded, if available.",
+      "additionalProperties": false,
+      "properties": {
+        "api": {
+          "oneOf": [
+            {
+              "type": "string",
+              "description": "The URL of the realtime API, e.g. 'https://data-exchange-api.vicroads.vic.gov.au/opendata/v1/gtfsr/metrotrain-tripupdates'."
+            },
+            {
+              "type": "array",
+              "description": "A list of URLs of realtime APIs.",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "description": "The URL of a realtime API, e.g. 'https://data-exchange-api.vicroads.vic.gov.au/opendata/v1/gtfsr/metrotrain-tripupdates'."
+              }
+            }
+          ]
+        },
+        "apiAuth": {
+          "enum": ["none", "melbourne"],
+          "description": "The method of authentication to use when accessing the realtime API."
+        },
+        "refreshInterval": {
+          "type": "integer",
+          "description": "The minimum number of seconds between calls to the realtime API."
+        },
+        "inactivityTimeout": {
+          "type": "integer",
+          "description": "How long realtime data will be refreshed for after the server last notices activity on the website."
+        },
+        "staleAfter": {
+          "type": "integer",
+          "description": "The maximum number of seconds a result from the realtime API will be recycled."
+        }
+      },
+      "required": [
+        "api",
+        "apiAuth",
+        "refreshInterval",
+        "inactivityTimeout",
+        "staleAfter"
+      ]
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "staticData": {
+      "type": "object",
+      "description": "Describes the method of fetching the static GFTS data.",
+      "oneOf": [
+        {
+          "properties": {
+            "method": {
+              "const": "local",
+              "description": "The file is loaded from local storage."
+            },
+            "path": {
+              "type": "string",
+              "description": "The path of the GTFS zip file on the relay server, e.g. 'offline/gtfs.zip'."
+            }
+          },
+          "required": ["method", "path"]
+        },
+        {
+          "properties": {
+            "method": {
+              "const": "url",
+              "description": "The file is downloaded from a URL, with no authentication required."
+            },
+            "url": {
+              "type": "string",
+              "description": "The URL of the GTFS zip file, e.g. 'https://data.ptv.vic.gov.au/downloads/gtfs.zip'."
+            }
+          },
+          "required": ["method", "url"]
+        },
+        {
+          "properties": {
+            "method": {
+              "const": "relay",
+              "description": "The file is fetched from the relay server (and requires the 'relay-key' header)."
+            },
+            "url": {
+              "type": "string",
+              "description": "The URL of the GTFS zip file on the relay server, e.g. 'https://vtar.trainquery.com/gtfs.zip'."
+            }
+          },
+          "required": ["method", "url"]
+        }
+      ]
+    },
+    "refreshHourUtc": {
+      "type": "integer",
+      "description": "The hour of the day (in UTC) at which the static data should be refreshed, e.g. '16' for 2am AEST (3am AEDT)."
+    },
+    "persist": {
+      "type": "boolean",
+      "description": "Whether to persist the static data to the database."
+    },
+    "realtime": {
+      "$ref": "#/definitions/realtime"
+    },
+    "parsing": {
+      "$ref": "#/definitions/parsing"
+    },
+    "stops": {
+      "$ref": "#/definitions/stops"
+    },
+    "subfeeds": {
+      "type": "array",
+      "description": "Used when the downloaded zip file contains inner zip files, each with their own independent feeds.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the subfeed, e.g. 'suburban' or 'regional'."
+          },
+          "path": {
+            "type": "string",
+            "description": "The location of the zip file within the outer zip file, e.g. '1/google_transit.zip'."
+          },
+          "realtime": {
+            "$ref": "#/definitions/realtime"
+          },
+          "parsing": {
+            "$ref": "#/definitions/parsing"
+          },
+          "stops": {
+            "$ref": "#/definitions/stops"
+          }
+        },
+        "required": ["name", "path", "parsing", "stops"]
+      }
+    }
+  },
+  "oneOf": [
+    {
+      "required": ["staticData", "refreshHourUtc", "persist", "subfeeds"]
+    },
+    {
+      "required": [
+        "staticData",
+        "refreshHourUtc",
+        "persist",
+        "parsing",
+        "stops"
+      ]
+    }
+  ]
+}

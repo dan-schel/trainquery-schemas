@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "stops": {
+      "type": "object",
+      "description": "Maps PTV stop IDs to the stop IDs specified in stops.yml, e.g. '1223: 48' to map PTV's 1223 to Cardinia Road.",
+      "propertyNames": {
+        "type": "integer"
+      },
+      "additionalProperties": {
+        "type": "integer",
+        "description": "The stop ID, e.g. '48' for Cardinia Road."
+      }
+    },
+    "lines": {
+      "type": "object",
+      "description": "Maps PTV route IDs to the line IDs specified in lines.yml, e.g. '1745: 20' to map PTV's 1745 to the Geelong Line (#20).",
+      "propertyNames": {
+        "type": "integer"
+      },
+      "additionalProperties": {
+        "type": "integer",
+        "description": "The line ID, e.g. '20' for the Geelong line."
+      }
+    }
+  },
+  "required": ["stops", "lines"]
+}

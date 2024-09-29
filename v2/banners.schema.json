@@ -1,0 +1,58 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "staleDisruptions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "dismissable": {
+          "oneOf": [
+            {
+              "const": false
+            },
+            {
+              "enum": ["each-day"]
+            }
+          ],
+          "description": "Whether the banner is dismissable. If set to 'each-day', the banner will be shown once per day."
+        },
+        "message": {
+          "type": "string",
+          "description": "The message on the banner. Supports some limited markdown, e.g. **bold**, *italics*, and [links](url)."
+        }
+      },
+      "description": "Controls if and how a banner is shown when fetching disruptions is failing.",
+      "required": ["dismissable", "message"]
+    },
+    "custom": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "A unique identifier for the custom banner. This is used to determine if the banner has been dismissed."
+          },
+          "dismissable": {
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "enum": ["each-day"]
+              }
+            ],
+            "description": "Whether the banner is dismissable. If set to 'each-day', the banner will be shown once per day."
+          },
+          "message": {
+            "type": "string",
+            "description": "The message on the banner. Supports some limited markdown, e.g. **bold**, *italics*, and [links](url)."
+          }
+        },
+        "required": ["id", "dismissable", "message"]
+      }
+    }
+  }
+}
