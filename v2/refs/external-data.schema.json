@@ -1,0 +1,54 @@
+{
+  "type": "object",
+  "properties": {
+    "type": {
+      "enum": ["simple", "relay", "vic-data-exchange"],
+      "description": "Either 'simple', 'relay', or 'vic-data-exchange'."
+    }
+  },
+  "required": ["type"],
+  "oneOf": [
+    {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "simple",
+          "description": "Fetch with a URL, no authentication required."
+        },
+        "url": {
+          "type": "string",
+          "description": "The URL to fetch from."
+        }
+      },
+      "required": ["url"]
+    },
+    {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "relay",
+          "description": "Fetch with a URL, providing the 'relay-key' header."
+        },
+        "url": {
+          "type": "string",
+          "description": "The URL to fetch from."
+        }
+      },
+      "required": ["url"]
+    },
+    {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "vic-data-exchange",
+          "description": "Fetch with a URL, providing the 'Ocp-Apim-Subscription-Key' header."
+        },
+        "url": {
+          "type": "string",
+          "description": "The URL to fetch from."
+        }
+      },
+      "required": ["url"]
+    }
+  ]
+}

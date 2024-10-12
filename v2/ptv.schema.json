@@ -6,6 +6,20 @@
       "type": "string",
       "description": "The URL of the PTV disruptions feed on the relay server, e.g. 'https://vtar.trainquery.com/ptv-disruptions.json'."
     },
+    "platformsApi": {
+      "description": "The external data fetch method (or array of methods) for fetching PTV platform data.",
+      "oneOf": [
+        {
+          "type": "array",
+          "items": {
+            "$ref": "refs/external-data.schema.json"
+          }
+        },
+        {
+          "$ref": "refs/external-data.schema.json"
+        }
+      ]
+    },
     "stops": {
       "type": "object",
       "description": "Maps PTV stop IDs to the stop IDs specified in stops.yml, e.g. '1223: 48' to map PTV's 1223 to Cardinia Road.",
